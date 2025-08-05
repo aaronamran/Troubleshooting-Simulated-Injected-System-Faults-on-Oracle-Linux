@@ -8,6 +8,28 @@ The idea is to run the provided script to randomise system issues that will happ
 
 
 ## Preparation and Initial Setup
+- Download Oracle Linux ISO version 9.6 from [https://yum.oracle.com/oracle-linux-isos.html](https://yum.oracle.com/oracle-linux-isos.html). Install it in VirtualBox and use 4096MB of RAM, 2 CPUs and 20GB storage
+- Power on the VM. Select the suitable language and on the screen shown as below, setup the Installation Destination, Root Password and User Creation <br />
+  <img width="1292" height="820" alt="image" src="https://github.com/user-attachments/assets/b8877196-e66a-40df-a456-ff53dd878eeb" />
+
+- In Installation Destination, select the disk where the OS will be installed on. Click Done when ready <br />
+  <img width="1287" height="815" alt="image" src="https://github.com/user-attachments/assets/d134aac7-5349-4233-9f89-98c933e53b3e" />
+
+- In Root Password, set the root password and confirm it. A simple password like `sysadmin` for the sake of this homelab is acceptable. Press Done twice since the password used is not strong enough <br />
+  <img width="1291" height="812" alt="image" src="https://github.com/user-attachments/assets/f8dc2ac1-c103-40d8-8e52-23d4ff7923d4" />
+
+- In User Creation, create a user account. Simple login credentials are enough <br />
+  <img width="1291" height="814" alt="image" src="https://github.com/user-attachments/assets/73921757-1d02-4d6b-8ece-419d62e18050" />
+
+- Begin the installation and let it complete <br />
+  <img width="1295" height="821" alt="image" src="https://github.com/user-attachments/assets/3eea70e5-240f-4ed4-b707-e8ad4c3e5a78" />
+
+- 
+
+
+
+
+
 - In the Oracle Linux VM, run the following script to randomise problems that will occur in the VM
   ```
   #!/bin/bash

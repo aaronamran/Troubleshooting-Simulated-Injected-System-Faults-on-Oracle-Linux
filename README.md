@@ -39,15 +39,15 @@ The idea is to run the provided script to randomise system issues that will happ
   
   echo "[*] Starting black-box fault injection..."
   
-  # Log file for your own future reference (optional)
-  logfile="/var/log/fault_injection.log"
-  mkdir -p /root/backup_configs
-  echo "[+] $(date): Starting fault injection" >> "$logfile"
+  # Output file to record what faults were injected
+  fault_log="/root/.injected_faults.txt"
+  echo "[+] $(date): Fault injection run" > "$fault_log"
   
-  # Define all fault functions
+  # === Fault Definitions ===
+  
   inject_dns_failure() {
     echo "nameserver 127.0.0.1" > /etc/resolv.conf
-    echo "DNS failure injected" >> "$logfile"
+    echo "- DNS failure (resolv.conf overwritten)" >> "$fault_log"
   }
   
   inject_systemd_failure() {
@@ -66,43 +66,44 @@ The idea is to run the provided script to randomise system issues that will happ
     systemctl daemon-reload
     systemctl enable badunit.service
     systemctl start badunit.service || true
-    echo "Systemd failure injected" >> "$logfile"
+    echo "- Systemd failure (badunit.service broken)" >> "$fault_log"
   }
   
   inject_fstab_error() {
     echo "/dev/fakevolume /mnt/fake ext4 defaults 0 0" >> /etc/fstab
-    echo "Fstab error injected" >> "$logfile"
+    echo "- Fstab error (invalid mount added)" >> "$fault_log"
   }
   
   inject_sudo_broken() {
     echo "badentry" >> /etc/sudoers
-    echo "Sudoers syntax error injected" >> "$logfile"
+    echo "- Sudo failure (invalid sudoers line)" >> "$fault_log"
   }
   
   inject_cron_failure() {
     echo "* * * * * root /bin/bash -c 'echo MissingQuote" > /etc/cron.d/brokenjob
-    echo "Cron job failure injected" >> "$logfile"
+    echo "- Cron job failure (syntax error)" >> "$fault_log"
   }
   
   inject_full_disk() {
     fallocate -l 500M /var/bloatfile
-    echo "Disk fill simulated" >> "$logfile"
+    echo "- Disk fill (500MB junk file created)" >> "$fault_log"
   }
   
   inject_ssh_config_error() {
     echo "PermitRootLogin maybe" >> /etc/ssh/sshd_config
     systemctl restart sshd || true
-    echo "SSH misconfiguration injected" >> "$logfile"
+    echo "- SSH config error (invalid directive)" >> "$fault_log"
   }
   
   inject_selinux_error() {
     if sestatus | grep -q "enabled"; then
       chcon -t httpd_sys_content_t /etc/shadow
-      echo "SELinux mislabel injected" >> "$logfile"
+      echo "- SELinux mislabel (wrong context on /etc/shadow)" >> "$fault_log"
     fi
   }
   
-  # List of problem functions
+  # === Fault List ===
+  
   problems=(
     inject_dns_failure
     inject_systemd_failure
@@ -114,8 +115,8 @@ The idea is to run the provided script to randomise system issues that will happ
     inject_selinux_error
   )
   
-  # Shuffle and inject 3 to 6 random problems
-  num_faults=$(( RANDOM % 4 + 3 )) # 3–6
+  # Shuffle & inject 3–6 random faults
+  num_faults=$(( RANDOM % 4 + 3 ))
   shuffled_faults=($(shuf -e "${problems[@]}"))
   selected_faults=("${shuffled_faults[@]:0:$num_faults}")
   
@@ -123,7 +124,8 @@ The idea is to run the provided script to randomise system issues that will happ
     $fault
   done
   
-  echo "[+] Fault injection complete. Total: $num_faults issues injected."
+  echo "[+] Fault injection complete. ($num_faults issues injected)"
+  echo "[*] You can view the fault log after you're done: $fault_log"
   ```
 
 

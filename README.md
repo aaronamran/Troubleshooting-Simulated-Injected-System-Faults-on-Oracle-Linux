@@ -6,6 +6,7 @@ The idea is to run the provided script to randomise system issues that will happ
 1. [Preparation and Initial Setup](#preparation-and-initial-setup)
 2. [Injecting Random System Faults](#injecting-random-system-faults)
 3. [Searching and Troubleshooting Issues](#searching-and-troubleshooting-issues)
+4. [Confirming Issues Found](#confirming-issues-found)
 
 
 ## Preparation and Initial Setup
@@ -192,34 +193,49 @@ The idea is to run the provided script to randomise system issues that will happ
   ```
   mount -a
   ```
+  <img width="554" height="105" alt="image" src="https://github.com/user-attachments/assets/ba227e41-938a-41ba-97ab-339346c656ba" />
+  From here we can see a fake mount point that does not exist
+
 
 - Check for bad mounts. If `/mnt/fake` or `/dev/fakevolume` appears, it's a deliberate fault
   ```
   cat /etc/fstab
   lsblk
   ```
+  <img width="776" height="443" alt="image" src="https://github.com/user-attachments/assets/6de5de39-2f78-4116-bd7f-8d83eee0f9bc" />
+
 
 - Sometimes the issue could be sudo or root access problems. Use the following command to check
   ```
   sudo ls /root
   ```
+  <img width="307" height="74" alt="image" src="https://github.com/user-attachments/assets/65d7cf5e-577e-43ca-a96e-3605587457f0" />
+
 
 - Check for DNS and network issues. A simple ping to google.com and to Google's DNS server should suffice
   ```
   ping -c 4 google.com
   ping -c 4 8.8.8.8
   ```
+  <img width="522" height="235" alt="image" src="https://github.com/user-attachments/assets/c7780cb5-55c2-4132-93fa-8fefb153f519" />
+
+  
 
 - If 8.8.8.8 works but google.com does not work, DNS is broken. Open the `resolv.conf` file and check if the nameserver is faulty
   ```
   cat /etc/resolv.conf
   ```
+  <img width="384" height="65" alt="image" src="https://github.com/user-attachments/assets/39c16981-a779-483f-8ae6-6eaafc1d2cf5" />
+  The nameserver is faulty as it points back to localhost
+
 
 - Check the SSH service. This is an important step if you would normally SSH into the box
   ```
   ss -tulnp | grep sshd
   systemctl status sshd
   ```
+  <img width="704" height="335" alt="image" src="https://github.com/user-attachments/assets/a35bb9bb-f0fe-4dfd-9ca8-227f38808fe1" />
+
   If `PermitRootLogin maybe` is visible, it means it is invalid
 
 - Cron jobs may be problematic too. Check the broken cron syntax using
@@ -227,37 +243,42 @@ The idea is to run the provided script to randomise system issues that will happ
   ls /etc/cron.d/
   cat /etc/cron.d/brokenjob
   ```
+  <img width="422" height="106" alt="image" src="https://github.com/user-attachments/assets/458c21d9-e24f-45ca-9843-be2e0db11dd3" />
+
 
   Check the cron logs too
   ```
   grep CRON /var/log/cron
   ```
+  <img width="893" height="905" alt="image" src="https://github.com/user-attachments/assets/d353531f-f359-470c-96a0-fca420d9e4d2" /> <br />
+  <img width="940" height="906" alt="image" src="https://github.com/user-attachments/assets/1598d8b2-4e7a-4291-940b-264a7da52334" />
+
 
 - SELinux or permission problems might be an issue too. Check if SELinux is enforcing
   ```
   getenforce
   ```
+  <img width="289" height="60" alt="image" src="https://github.com/user-attachments/assets/5a5e314c-3c01-4bd3-bc67-95c362fefc02" />
+
 
 - Audit the logs for denials
   ```
   ausearch -m avc -ts recent | audit2why
   ```
+  <img width="566" height="180" alt="image" src="https://github.com/user-attachments/assets/5b1ff80a-9192-46c4-b4bf-8595b0867f14" />
+
 
 - Check for mislabeled system files
   ```
   ls -Z /etc/shadow
   ```
+  <img width="351" height="70" alt="image" src="https://github.com/user-attachments/assets/35a9436c-fe81-40e6-aed1-f4fd2df0baa9" />
 
   
-
-
-
-
+## Confirming Issues Found
+- After the search is complete, we can check back the hidden generated text file located in the root folder. Since it is in the root folder, `sudo` needs to be included
+  ```
+  sudo cat /root/.injected_faults.txt
+  ```
+  <img width="486" height="150" alt="image" src="https://github.com/user-attachments/assets/0cae8da0-3ddd-4665-b1c2-f4ba2b7080fd" />
   
-
-
-
-
-
-
-

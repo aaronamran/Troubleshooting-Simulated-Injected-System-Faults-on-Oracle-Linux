@@ -148,21 +148,116 @@ The idea is to run the provided script to randomise system issues that will happ
 
 
 ## Searching and Troubleshooting Issues
-- Step	Goal	Example Tools
-1. Basic Health Check	Is the system alive, usable, responsive?	uptime, top, free -m, df -h
-2. Recent Logs	Any obvious issues reported?	journalctl -xe, dmesg, /var/log/messages
-3. System Services	Any failed services?	systemctl --failed, systemctl list-units --state=failed
-4. Disk & Mounts	Disk full? Mount broken?	df -h, mount -a, /etc/fstab
-5. Network Connectivity	DNS? Gateway? SSH?	ping, dig, ip a, ip r, ss -tuln
-6. User Access	Can users sudo? SSH? Login?	id, sudo -l, getent passwd, last
-7. Scheduled Jobs	Are cron jobs breaking things?	crontab -l, /etc/cron*, log checks
-8. SELinux/Permissions	Is access denied unexpectedly?	getenforce, audit2why, ls -Z
-9. Application Layer	Is anything expected missing/broken?	App-specific logs, configs
-10. Investigate Deeper	Now dig into suspicious leads	grep logs, check service configs, try restarts, etc
+- Since the 3 faults injected were random, a step-by-step approach to search for the issues will be implemented
+- Firstly, a general system overview will be checked. Each of the following commands are used and their results provided
+  ```
+  uptime
+  ```
+  <img width="531" height="67" alt="image" src="https://github.com/user-attachments/assets/ed4fcc00-0dad-4d74-9c12-998f3765c4ea" />
+
+  ```
+  top
+  ```
+  <img width="903" height="868" alt="image" src="https://github.com/user-attachments/assets/e22addc2-939f-4341-99b6-0297550aef2c" />
+
+
+  ```
+  df -h
+  ```
+  <img width="647" height="183" alt="image" src="https://github.com/user-attachments/assets/d55705db-fdb3-4f1a-b063-908b1e707d5a" />
+
+
+  ```
+  free -m
+  ```
+  <img width="670" height="98" alt="image" src="https://github.com/user-attachments/assets/2bd6b4be-5e52-4207-bc0a-e1786c66b3f0" />
+
+
+- Next, look for failed services. Use the command
+  ```
+  systemctl --failed
+  ```
+  <img width="605" height="165" alt="image" src="https://github.com/user-attachments/assets/f48ee120-9759-4b72-94c0-7671df3e70c1" />
+
+
+- If something shows up like `badunit.service`, get the details like the following
+  ```
+  systemctl status badunit.service
+  journalctl -xe -u badunit.service
+  ```
+  <img width="944" height="421" alt="image" src="https://github.com/user-attachments/assets/32299d07-307e-4946-a085-a65d96a1e811" /> <br />
+  <img width="503" height="939" alt="image" src="https://github.com/user-attachments/assets/6e8faa7c-9dd7-4b4c-af1f-dad1e70267c9" />
+
+- Check also for disk or filesystem issues. Use
+  ```
+  mount -a
+  ```
+
+- Check for bad mounts. If `/mnt/fake` or `/dev/fakevolume` appears, it's a deliberate fault
+  ```
+  cat /etc/fstab
+  lsblk
+  ```
+
+- Sometimes the issue could be sudo or root access problems. Use the following command to check
+  ```
+  sudo ls /root
+  ```
+
+- Check for DNS and network issues. A simple ping to google.com and to Google's DNS server should suffice
+  ```
+  ping -c 4 google.com
+  ping -c 4 8.8.8.8
+  ```
+
+- If 8.8.8.8 works but google.com does not work, DNS is broken. Open the `resolv.conf` file and check if the nameserver is faulty
+  ```
+  cat /etc/resolv.conf
+  ```
+
+- Check the SSH service. This is an important step if you would normally SSH into the box
+  ```
+  ss -tulnp | grep sshd
+  systemctl status sshd
+  ```
+  If `PermitRootLogin maybe` is visible, it means it is invalid
+
+- Cron jobs may be problematic too. Check the broken cron syntax using
+  ```
+  ls /etc/cron.d/
+  cat /etc/cron.d/brokenjob
+  ```
+
+  Check the cron logs too
+  ```
+  grep CRON /var/log/cron
+  ```
+
+- SELinux or permission problems might be an issue too. Check if SELinux is enforcing
+  ```
+  getenforce
+  ```
+
+- Audit the logs for denials
+  ```
+  ausearch -m avc -ts recent | audit2why
+  ```
+
+- Check for mislabeled system files
+  ```
+  ls -Z /etc/shadow
+  ```
+
+  
+
+
+
+
+  
 
 
 
 
 
 
-## 
+

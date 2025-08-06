@@ -1,6 +1,8 @@
 # Troubleshooting Simulated Injected System Faults on Oracle Linux
-This homelab project simulates system faults on Oracle Linux VM to practice troubleshooting skills. It is optimised for low-resource environments, ideal for single-laptop homelabs and virtual setups.
-The idea is to run the provided script to randomise system issues that will happen to provide a black-box environment, and troubleshoot those issues in a strategical approach.
+This project showcases a realistic Oracle Linux troubleshooting environment built on a single virtual machine. Designed for intermediate-to-advanced Linux users, the lab simulates deep system-level faults that must be manually diagnosed and repaired without prior knowledge of the issues. A custom shell script randomly injects problems across key system areas such as networking, systemd services, user permissions, cron jobs, and SELinux. The VM mimics real-world break/fix scenarios where sysadmins must investigate symptoms using standard Linux tools and logs. Core components like the firewall, SSH access, user accounts, and system services are configured to reflect enterprise environments. A hidden fault log enables post-repair validation. This self-contained lab helps reinforce RHCE-level skills in diagnostics, service recovery, and secure system management.
+
+
+<img width="1536" height="1024" alt="oracle_linux_troubleshooting_injected_faults" src="https://github.com/user-attachments/assets/a917321a-64b1-41a5-8ff5-49424335b459" />
 
 
 1. [Preparation and Initial Setup](#preparation-and-initial-setup)

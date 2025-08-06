@@ -218,13 +218,12 @@ The idea is to run the provided script to randomise system issues that will happ
   <img width="522" height="235" alt="image" src="https://github.com/user-attachments/assets/c7780cb5-55c2-4132-93fa-8fefb153f519" />
 
   
-
 - If 8.8.8.8 works but google.com does not work, DNS is broken. Open the `resolv.conf` file and check if the nameserver is faulty
   ```
   cat /etc/resolv.conf
   ```
   <img width="384" height="65" alt="image" src="https://github.com/user-attachments/assets/39c16981-a779-483f-8ae6-6eaafc1d2cf5" /> <br />
-  The nameserver is faulty as it points back to localhost
+  The nameserver is faulty as it is trying to resolve DNS through itself (localhost). The nameserver should be 8.8.8.8
 
 
 - Check the SSH service. This is an important step if you would normally SSH into the box

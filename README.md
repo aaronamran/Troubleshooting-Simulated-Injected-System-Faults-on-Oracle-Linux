@@ -128,6 +128,9 @@ The idea is to run the provided script to randomise system issues that will happ
   echo "[+] Fault injection complete. ($num_faults issues injected)"
   echo "[*] You can view the fault log after you're done: $fault_log"
   ```
+  <br />
+  <img width="632" height="640" alt="image" src="https://github.com/user-attachments/assets/bcc2e5d4-b2ed-4ead-b887-09ee1106c77c" />
+
 
 - The file can be read and is located in
   ```

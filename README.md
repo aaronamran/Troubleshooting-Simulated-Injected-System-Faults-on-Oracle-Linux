@@ -129,6 +129,12 @@ The idea is to run the provided script to randomise system issues that will happ
   echo "[*] You can view the fault log after you're done: $fault_log"
   ```
 
+- The file can be read and is located in
+  ```
+  cat /root/.injected_faults.txt
+  ```
+
+- 
 
 
 ## Searching and Troubleshooting Issues

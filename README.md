@@ -131,6 +131,12 @@ The idea is to run the provided script to randomise system issues that will happ
   <br />
   <img width="632" height="640" alt="image" src="https://github.com/user-attachments/assets/bcc2e5d4-b2ed-4ead-b887-09ee1106c77c" />
 
+- Ensure that the Bash script is executable. Use the following command to change the permissions
+  ```
+  sudo chmod 777 faultinjector.sh
+  ```
+  <img width="1137" height="674" alt="VirtualBox_Oracle Linux_06_08_2025_11_00_18" src="https://github.com/user-attachments/assets/f4d8b239-2053-4a68-9b5a-a535ccfede6e" />
+
 
 - The file can be read and is located in
   ```

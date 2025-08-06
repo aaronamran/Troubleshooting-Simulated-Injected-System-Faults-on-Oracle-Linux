@@ -145,8 +145,6 @@ The idea is to run the provided script to randomise system issues that will happ
   ```
   <img width="662" height="212" alt="image" src="https://github.com/user-attachments/assets/b157d89f-4d4b-46ca-a218-eca1023be8b2" />
 
-- 
-
 
 ## Searching and Troubleshooting Issues
 - Since the 3 faults injected were random, a step-by-step approach to search for the issues will be implemented
@@ -193,11 +191,11 @@ The idea is to run the provided script to randomise system issues that will happ
   ```
   mount -a
   ```
-  <img width="554" height="105" alt="image" src="https://github.com/user-attachments/assets/ba227e41-938a-41ba-97ab-339346c656ba" />
+  <img width="554" height="105" alt="image" src="https://github.com/user-attachments/assets/ba227e41-938a-41ba-97ab-339346c656ba" /> <br />
   From here we can see a fake mount point that does not exist
 
 
-- Check for bad mounts. If `/mnt/fake` or `/dev/fakevolume` appears, it's a deliberate fault
+- Check for bad mounts. If `/mnt/fake` or `/dev/fakevolume` appears, it is a deliberate fault
   ```
   cat /etc/fstab
   lsblk
@@ -225,7 +223,7 @@ The idea is to run the provided script to randomise system issues that will happ
   ```
   cat /etc/resolv.conf
   ```
-  <img width="384" height="65" alt="image" src="https://github.com/user-attachments/assets/39c16981-a779-483f-8ae6-6eaafc1d2cf5" />
+  <img width="384" height="65" alt="image" src="https://github.com/user-attachments/assets/39c16981-a779-483f-8ae6-6eaafc1d2cf5" /> <br />
   The nameserver is faulty as it points back to localhost
 
 
@@ -234,7 +232,7 @@ The idea is to run the provided script to randomise system issues that will happ
   ss -tulnp | grep sshd
   systemctl status sshd
   ```
-  <img width="704" height="335" alt="image" src="https://github.com/user-attachments/assets/a35bb9bb-f0fe-4dfd-9ca8-227f38808fe1" />
+  <img width="704" height="335" alt="image" src="https://github.com/user-attachments/assets/a35bb9bb-f0fe-4dfd-9ca8-227f38808fe1" /> <br />
 
   If `PermitRootLogin maybe` is visible, it means it is invalid
 

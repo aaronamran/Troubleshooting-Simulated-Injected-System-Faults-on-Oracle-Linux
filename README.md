@@ -4,7 +4,8 @@ The idea is to run the provided script to randomise system issues that will happ
 
 
 1. [Preparation and Initial Setup](#preparation-and-initial-setup)
-2. [
+2. [Injecting Random System Faults](#injecting-random-system-faults)
+3. [Searching and Troubleshooting Issues](#searching-and-troubleshooting-issues)
 
 
 ## Preparation and Initial Setup
@@ -29,7 +30,7 @@ The idea is to run the provided script to randomise system issues that will happ
 
 
 
-
+## Injecting Random System Faults
 - In the Oracle Linux VM, run the following script to randomise problems that will occur in the VM
   ```
   #!/bin/bash
@@ -130,7 +131,7 @@ The idea is to run the provided script to randomise system issues that will happ
 
 
 
-## Troubleshooting Approach
+## Searching and Troubleshooting Issues
 - Step	Goal	Example Tools
 1. Basic Health Check	Is the system alive, usable, responsive?	uptime, top, free -m, df -h
 2. Recent Logs	Any obvious issues reported?	journalctl -xe, dmesg, /var/log/messages

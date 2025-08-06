@@ -26,7 +26,6 @@ The idea is to run the provided script to randomise system issues that will happ
 - Begin the installation and let it complete <br />
   <img width="1295" height="821" alt="image" src="https://github.com/user-attachments/assets/3eea70e5-240f-4ed4-b707-e8ad4c3e5a78" />
 
-- 
 
 
 

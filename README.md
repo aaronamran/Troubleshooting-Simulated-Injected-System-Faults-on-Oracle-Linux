@@ -138,10 +138,11 @@ The idea is to run the provided script to randomise system issues that will happ
   <img width="1137" height="674" alt="VirtualBox_Oracle Linux_06_08_2025_11_00_18" src="https://github.com/user-attachments/assets/f4d8b239-2053-4a68-9b5a-a535ccfede6e" />
 
 
-- The file can be read and is located in
+- After running the script, the file can be read and is located in
   ```
   cat /root/.injected_faults.txt
   ```
+  <img width="662" height="212" alt="image" src="https://github.com/user-attachments/assets/b157d89f-4d4b-46ca-a218-eca1023be8b2" />
 
 - 
 

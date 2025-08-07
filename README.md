@@ -294,7 +294,7 @@ This project showcases a realistic Oracle Linux troubleshooting environment buil
   ```
   <img width="783" height="301" alt="image" src="https://github.com/user-attachments/assets/7b9e1a2b-53c3-418c-ab39-ee778b86c303" />
 
-  To understand why it this causes an error, run
+  To understand why this causes an error, run the command below which attempts to mount all filesystems mentioned in `/etc/fstab` that are not already mounted
   ```
   sudo mount -a
   ```

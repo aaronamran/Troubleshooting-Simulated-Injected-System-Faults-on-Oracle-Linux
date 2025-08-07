@@ -299,6 +299,7 @@ This project showcases a realistic Oracle Linux troubleshooting environment buil
   sudo mount -a
   ```
   <img width="387" height="66" alt="image" src="https://github.com/user-attachments/assets/b15344de-5007-4f14-8ec5-75f75aceb499" />
+  <br />
   It states that the mount point does not exist. To solve this, edit the file and comment out the invalid line <br />
   <img width="791" height="294" alt="image" src="https://github.com/user-attachments/assets/1269de5f-b2b6-43e1-9955-367c5ac3701d" />
 

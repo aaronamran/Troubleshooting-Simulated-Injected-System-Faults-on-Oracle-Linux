@@ -279,4 +279,27 @@ This project showcases a realistic Oracle Linux troubleshooting environment buil
   sudo cat /root/.injected_faults.txt
   ```
   <img width="486" height="150" alt="image" src="https://github.com/user-attachments/assets/0cae8da0-3ddd-4665-b1c2-f4ba2b7080fd" />
-  
+
+- For the DNS failure issue, a simple VM reboot helps fixes the broken DNS resolution. `NetworkManager` (or systemd-resolved) rebuilds `/etc/resolv.conf`, restoring a valid DNS (e.g., from DHCP). This is proven by a simple ping to google.com <br />
+  <img width="744" height="202" alt="image" src="https://github.com/user-attachments/assets/324b2d6c-d564-4b9e-b9a4-f2bd4aefaa9a" />
+
+- The broken cron job is due to a syntax error. To fix this, open the cron job in a text editor, add a quote and save the changes <br />
+  <img width="419" height="72" alt="image" src="https://github.com/user-attachments/assets/4222dcaa-2167-4ae1-9cf8-b84707fdcff9" />
+  <br />
+  <img width="979" height="297" alt="image" src="https://github.com/user-attachments/assets/fc529531-0d59-4bdf-8f19-963322b45e91" />
+
+- For the invalid entry in `/etc/fstab`, run the command below to read the file
+  ```
+  cat /etc/fstab
+  ```
+  <img width="783" height="301" alt="image" src="https://github.com/user-attachments/assets/7b9e1a2b-53c3-418c-ab39-ee778b86c303" />
+
+  To understand why it this causes an error, run
+  ```
+  sudo mount -a
+  ```
+  <img width="387" height="66" alt="image" src="https://github.com/user-attachments/assets/b15344de-5007-4f14-8ec5-75f75aceb499" />
+  It states that the mount point does not exist. To solve this, edit the file and comment out the invalid line <br />
+  <img width="791" height="294" alt="image" src="https://github.com/user-attachments/assets/1269de5f-b2b6-43e1-9955-367c5ac3701d" />
+
+

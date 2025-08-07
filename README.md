@@ -303,4 +303,4 @@ This project showcases a realistic Oracle Linux troubleshooting environment buil
   It states that the mount point does not exist. To solve this, edit the file and comment out the invalid line <br />
   <img width="791" height="294" alt="image" src="https://github.com/user-attachments/assets/1269de5f-b2b6-43e1-9955-367c5ac3701d" />
 
-
+- After completing the troubleshooting, revert the VM to its original, non-faulty snapshot to ensure proper functionality for future use
